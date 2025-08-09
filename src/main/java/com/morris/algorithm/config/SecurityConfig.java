@@ -18,6 +18,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/public/**", "/health", "/actuator/**").permitAll()
+                        // Swagger UI 관련 경로 허용
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                        // H2 콘솔 허용 (개발 환경용)
+                        .requestMatchers("/h2-console/**").permitAll()
+
                         .anyRequest().authenticated()
                 );
 
